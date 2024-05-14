@@ -21,6 +21,7 @@ func DefineRoutes() {
 	// Define your routes here
 	routes := map[string]func(http.ResponseWriter, *http.Request){
 		"/": func(w http.ResponseWriter, r *http.Request) { HomeHandler(w, r, "views/home.html") },
+		"/categores": func(w http.ResponseWriter, r *http.Request) { HomeHandler(w, r, "views/home.html") },
 	}
 	for path, handler := range routes {
 		http.HandleFunc(path, handler)
