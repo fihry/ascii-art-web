@@ -7,9 +7,10 @@
 </head>
 <body>
     <h1>{{.Description}}</h1>
-    <form action="" method="POST">
+    <form action="/" method="POST">
         <label for="">type here</label>
-        <input type="text" name="text">
+        <input type="text" name="text" >
+        <!-- <textarea name="text" id=""></textarea> -->
         <select name="font" id="">
             <option value="Font1">{{.Font1}}</option>
             <option value="Font2">{{.Font2}}</option> 
@@ -17,6 +18,9 @@
         </select>
         <button type="submit">submet</button>
     </form>
-    <div class="content">{{.Content}}</div>
+    <pre>
+        {{.Content}}
+    </pre>
+    <!-- <div class="content">{{.Content}}</div> -->
 </body>
 </html>

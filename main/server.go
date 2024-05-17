@@ -15,44 +15,50 @@ type Info struct {
 	Font2       string
 	Font3       string
 	Content     string
+	Text        string
 }
 
 func pageHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		http.NotFound(w, r)
-		return
-	}
+	// if r.URL.Path != "/" {
+	// 	http.NotFound(w, r)
+	// 	return
+	// }
 	templ, err := template.ParseFiles("../templates/index.html")
 	if err != nil {
 		log.Fatal(err)
 	}
-	fonts := map[string]string {
-		"Font1": "standard",
-		"Font2": "shadow",
-		"Font3": "thinkertoy",
-	}
+	// fonts := map[string]string {
+	// 	"Font1": "standard",
+	// 	"Font2": "shadow",
+	// 	"Font3": "thinkertoy",
+	// }
+	text := r.FormValue("text")
 	Data := Info{
 		Title:       "AsciiArtWeb",
 		Description: "Make your Art",
 		Font1:       "standard",
 		Font2:       "shadow",
 		Font3:       "thinkertoy",
-		Content:     "",
+		Text:        text,
+		Content:     ascii.Asci(text, "standard"),
 	}
-	var text, font string
-	if r.Method == "POST" {
-		text = r.FormValue("text")
-		font = r.FormValue("font")
-		log.Print(text, "standard")
-	}
-	Data.Content = ascii.Asci(text, fonts[font])
+	// if r.Method != http.MethodPost {
+	// 	http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+	// 	return
+	// }
 	err = templ.Execute(w, Data)
+	Data.Text = ""
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
+// func AsciiArtWebHundler (w http.ResponseWriter,re *http.Request){
+// 	if
+// }
+
 func main() {
 	http.HandleFunc("/", pageHandler)
+	// http.Handle("/ascii-art", nil)
 	http.ListenAndServe(":8080", nil)
 }

@@ -9,5 +9,5 @@ func IsEmpty(slice []string) bool {
 	return true
 }
 func IsPrintable(char rune) bool {
-	return char < 127 && char > 31
+	return (char < 127 && char > 31) || char == '\n' || char == '\r'
 }
