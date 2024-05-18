@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -23,7 +22,8 @@ type Info struct {
 
 func pageHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
-		//hna khassek thandle l cas dyal link ghalet
+		http.NotFound(w, r)
+		return
 	}
 	templ, err := template.ParseFiles("../templates/index.html")
 	if err != nil {
@@ -35,18 +35,17 @@ func pageHandler(w http.ResponseWriter, r *http.Request) {
 		"Font2": "shadow",
 		"Font3": "thinkertoy",
 	}
+	Font := r.FormValue("select")
+
 	Data := Info{
 		Title:       "Ascii Art Web",
 		Description: "Convert text to ASCII art.",
 		Font1:       fonts["Font1"],
 		Font2:       fonts["Font2"],
 		Font3:       fonts["Font3"],
-		Font:        r.FormValue("select"),
 		Text:        text,
-		Content:     "",
+		Content:     ascii.Asci(text, ascii.DefaultFont(Font, "standard")),
 	}
-	Font := r.FormValue("select")
-	Data.Content = ascii.Asci(text, ascii.DefaultFont(Font, "standard"))
 
 	err = templ.Execute(w, Data)
 	// make the text empty
