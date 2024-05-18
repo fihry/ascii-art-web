@@ -20,7 +20,7 @@ func LoadAscci(Banner string) (maze []string) {
 	return
 }
 
-func PrintAscci(words, content []string) (res string) {
+func MakeAscii(words, content []string) (res string) {
 	for _, word := range words {
 		if word == "" {
 			res += "\n"
@@ -31,10 +31,6 @@ func PrintAscci(words, content []string) (res string) {
 			for _, v := range word {
 				if v == '\r' {
 					continue
-				}
-				if !IsPrintable(v) {
-					os.Stdout.WriteString("<-----------\n we accept things just in the ascci table\n----------->\n")
-					os.Exit(0)
 				}
 				n := int((v - 32) * 9)
 				myLine += content[n+i]

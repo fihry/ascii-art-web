@@ -4,11 +4,11 @@ import (
 	"strings"
 )
 
-func Asci(text, banner string) string {
+func AsciiArt(text, banner string) string {
 	content := LoadAscci(banner)
 	words := strings.Split(text, "\n")
 	if IsEmpty(words) {
 		words = words[1:]
 	}
-	return PrintAscci(words, content)
+	return MakeAscii(words, content)
 }

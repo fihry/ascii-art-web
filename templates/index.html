@@ -120,14 +120,15 @@
     </style>
     <h1>{{.Title}}</h1>
     <h2>{{.Description}}</h2>
-    <form action="/" method="POST">
+    <form action="/ascii-art" method="POST">
         <label for="">type here</label>
         <textarea name="text" id="" cols="60" rows="6"></textarea>
+        <span style="color:red;">{{.Warning}}</span>
         <label for="">select font</label>
         <select name="select" id="">
-            <option value={{.Font1}}>{{.Font1}}</option>
-            <option value={{.Font2}}>{{.Font2}}</option>
-            <option value={{.Font3}}>{{.Font3}}</option>
+            <option value="standard">standard</option>
+            <option value="shadow">shadow</option>
+            <option value="thinkertoy">thinkertoy</option>
         </select>
         <button type="submit">submet</button>
     </form>
@@ -135,12 +136,16 @@
     <div class="container">
         <h2>Output</h2>
         <div class="content">
-            <pre >{{.Content}}</pre>
+            <pre>{{.Content}}</pre>
         </div>
-        <a href="../tools.go" download>
+        <!-- <a href="/output/ascii-art-web.txt" download>
             <button>Download</button>
-        </a>
+        </a> -->
+    </div>
+    </div>
     </div>
 </body>
+
+
 
 </html>

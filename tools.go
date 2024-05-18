@@ -8,12 +8,11 @@ func IsEmpty(slice []string) bool {
 	}
 	return true
 }
-func IsPrintable(char rune) bool {
-	return (char < 127 && char > 31) 
-}
-func DefaultFont(font, defaultValue string) string {
-	if font == "" {
-		return defaultValue
+func IsPrintable(s string) bool {
+	for _, char := range s {
+		if( char < 32 || char > 126 ) && char != '\n' && char != '\r' && char != '\t' && char != ' ' && char != '\v' && char != '\f' {
+			return false
+		}
 	}
-	return font
+	return true
 }
