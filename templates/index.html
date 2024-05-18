@@ -1,26 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{.Title}}</title>
 </head>
+
 <body>
-    <h1>{{.Description}}</h1>
-    <form action="/" method="POST">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color:green;
+            border-radius: 15px;
+        }
+
+        ::-webkit-scrollbar {
+           height: 6px;
+           width: 6px;
+        }
+
+        body {
+            position: relative;
+            font-family: "Jersey 10", sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            text-align: center;
+            color: green;
+            font-size: 3rem;
+            font-weight: 900;
+        }
+
+        h2 {
+            text-align: center;
+            color: green;
+        }
+
+        form {
+            position:relative ;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        label {
+            margin-top: 10px;
+            color: #333;
+        }
+
+        textarea {
+            width: 50%;
+            max-width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            caret-color: green;
+            color: green;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        select {
+            width: 50%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            width: 50%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .container {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .content {
+            width: 60%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            overflow-x: scroll;
+        }
+        .container a button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        pre {
+            text-align: center;
+            padding: 10px;
+            color: green;
+        }
+    </style>
+    <h1>{{.Title}}</h1>
+    <h2>{{.Description}}</h2>
+    <form action="/ascii-art" method="POST">
         <label for="">type here</label>
-        <input type="text" name="text" >
-        <!-- <textarea name="text" id=""></textarea> -->
-        <select name="font" id="">
-            <option value="Font1">{{.Font1}}</option>
-            <option value="Font2">{{.Font2}}</option> 
-            <option value="Font3">{{.Font3}}</option>
+        <textarea name="text" id="" cols="60" rows="6"></textarea>
+        <label for="">select font</label>
+        <select name="select" id="">
+            <option value={{.Font1}}>{{.Font1}}</option>
+            <option value={{.Font2}}>{{.Font2}}</option>
+            <option value={{.Font3}}>{{.Font3}}</option>
         </select>
         <button type="submit">submet</button>
     </form>
-    <pre>
-        {{.Content}}
-    </pre>
-    <!-- <div class="content">{{.Content}}</div> -->
+
+    <div class="container">
+        <h2>Output</h2>
+        <div class="content">
+            <pre>{{.Content}}</pre>
+        </div>
+        <a href="/output/ascii-art-web.txt" download>
+            <button>Download</button>
+        </a>
+    </div>
 </body>
+
 </html>

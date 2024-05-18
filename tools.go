@@ -11,3 +11,9 @@ func IsEmpty(slice []string) bool {
 func IsPrintable(char rune) bool {
 	return (char < 127 && char > 31) || char == '\n' || char == '\r'
 }
+func DefaultFont(font, defaultValue string) string {
+	if font == "" {
+		return defaultValue
+	}
+	return font
+}

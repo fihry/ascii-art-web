@@ -15,6 +15,7 @@ type Info struct {
 	Font1       string
 	Font2       string
 	Font3       string
+	Font        string
 	Content     string
 	Text        string
 }
@@ -28,31 +29,32 @@ func pageHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	// fonts := map[string]string {
-	// 	"Font1": "standard",
-	// 	"Font2": "shadow",
-	// 	"Font3": "thinkertoy",
-	// }
 	text := r.FormValue("text")
+	fonts := map[string]string{
+		"Font1": "standard",
+		"Font2": "shadow",
+		"Font3": "thinkertoy",
+	}
 	Data := Info{
 		Title:       "Ascii Art Web",
 		Description: "Convert text to ASCII art.",
-		Font1:       "standard",
-		Font2:       "shadow",
-		Font3:       "thinkertoy",
+		Font1:       fonts["Font1"],
+		Font2:       fonts["Font2"],
+		Font3:       fonts["Font3"],
+		Font:        r.FormValue("select"),
 		Text:        text,
-		Content:     ascii.Asci(text, "standard"),
+		Content:     "",
 	}
-	// if r.Method != http.MethodPost {
-	// 	http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
-	// 	return
-	// }
+	Font := r.FormValue("select")
+	Data.Content = ascii.Asci(text, ascii.DefaultFont(Font, "standard"))
+
 	err = templ.Execute(w, Data)
 	// make the text empty
 	Data.Text = ""
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	os.WriteFile("../output/ascii-art-web.txt", []byte(Data.Content), 0o644)
 }
 
