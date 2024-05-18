@@ -2,6 +2,7 @@ package ascii
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 )
@@ -29,10 +30,14 @@ func PrintAscci(words, content []string) (res string) {
 		for i := 1; i < 9; i++ {
 			myLine := ""
 			for _, v := range word {
+				if v == '\r' {
+					continue
+				}
 				if !IsPrintable(v) {
 					os.Stdout.WriteString("<-----------\n we accept things just in the ascci table\n----------->\n")
 					os.Exit(0)
 				}
+				fmt.Println(v)
 				n := int((v - 32) * 9)
 				myLine += content[n+i]
 			}

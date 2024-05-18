@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -21,10 +22,9 @@ type Info struct {
 }
 
 func pageHandler(w http.ResponseWriter, r *http.Request) {
-	// if r.URL.Path != "/" {
-	// 	http.NotFound(w, r)
-	// 	return
-	// }
+	if r.URL.Path != "/" {
+		//hna khassek thandle l cas dyal link ghalet
+	}
 	templ, err := template.ParseFiles("../templates/index.html")
 	if err != nil {
 		log.Fatal(err)
