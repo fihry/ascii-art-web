@@ -30,15 +30,15 @@ func pageHandler(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
+
 	templ, err := template.ParseFiles("../templates/index.html")
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	err = templ.Execute(w, Data)
-	// make the text empty
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(w, "Could not execute template", http.StatusInternalServerError)
 	}
 	Data.Text, Data.Content, Data.Warning = "", "", ""
 }
@@ -48,7 +48,7 @@ func HandleAscii(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
 		http.Error(w, "Could not parse form", http.StatusBadRequest)
-		return
+		log.Println("Could not parse form")
 	}
 
 	// Get the value of a form field and assign it to the Data struct
@@ -60,6 +60,9 @@ func HandleAscii(w http.ResponseWriter, r *http.Request) {
 	}
 
 	Data.Font = r.FormValue("select")
+	if Data.Font == "" {
+		Data.Font = "standard"
+	}
 	Data.Content = ascii.AsciiArt(Data.Text, Data.Font)
 	// Then redirect the user to the root page
 	http.Redirect(w, r, "/", http.StatusSeeOther)
