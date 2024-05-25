@@ -1,5 +1,4 @@
-# Project Title
-Ascii Art Web
+# Ascii Art Web
 
 ## Table of Contents
 
